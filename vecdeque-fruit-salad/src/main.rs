@@ -26,6 +26,20 @@ fn main() {
     // Convert it back to VecDeque
     let mut fruit: VecDeque<_> = fruit.into_iter().collect();
 
+    // Take user input to add more fruits to the front of the list
+    println!("Enter a fruit to add to the front of the list:");
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let input = input.trim();
+    fruit.push_front(input);
+
+    // Now do the same for the back of the list
+    println!("Enter a fruit to add to the back of the list:");
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let input = input.trim();
+    fruit.push_back(input);
+
     // Add fruits to the both ends of the queue after shuffling
     fruit.push_front("Pomegranate");
     fruit.push_back("Fig");
@@ -40,4 +54,25 @@ fn main() {
             println!("{}", item);
         }
     }
+    // Select a random winning fruit using SliceRandom
+    let mut rng = thread_rng();
+    let fruit: Vec<_> = fruit.into_iter().collect();
+    let winning_fruit = fruit.choose(&mut rng).unwrap();
+    println!("The winning fruit is: {}", winning_fruit);
+
+    // Convert back to VecDeque
+    let mut fruit: VecDeque<_> = fruit.into_iter().collect();
+
+    // Remove a fruit from the front of the list, print it, and then print the new list
+    let removed_fruit = fruit.pop_front().unwrap();
+    println!("Removed fruit: {}", removed_fruit);
+    let fruit: Vec<_> = fruit.into_iter().collect();
+    println!("New fruit list: {:?}", fruit);
+
+    // Remove a fruit from the back of the list, print it, and then print the new list
+    let mut fruit: VecDeque<_> = fruit.into_iter().collect();
+    let removed_fruit = fruit.pop_back().unwrap();
+    println!("Removed fruit: {}", removed_fruit);
+    let fruit: Vec<_> = fruit.into_iter().collect();
+    println!("New fruit list: {:?}", fruit);
 }
